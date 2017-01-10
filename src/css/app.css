@@ -1,0 +1,9 @@
+#user-select ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+#user-select ul li {
+    float: left;
+    margin: 5px;
+}
