@@ -1,9 +1,20 @@
-#user-select ul {
+#app{
+    -webkit-user-select: none;  /* Chrome all / Safari all */
+    -moz-user-select: none;     /* Firefox all */
+    -ms-user-select: none;      /* IE 10+ */
+    user-select: none;          /* Likely future */
+}
+
+ul {
     list-style: none;
     margin: 0;
     padding: 0;
 }
-#user-select ul li {
+ul li {
     float: left;
     margin: 5px;
+}
+
+.btn-default:hover{
+    background-image: linear-gradient(#54b4eb, #2fa4e7 60%, #1d9ce5);
 }

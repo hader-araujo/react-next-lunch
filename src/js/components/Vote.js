@@ -1,8 +1,6 @@
 import React from "react";
 import {renderIf} from 'react-render-if'
 
-import { selectUser } from "../actions/SelectUserActions"
-
 @renderIf(
     x => x.props.idSelected
 )
@@ -12,11 +10,15 @@ export default class Vote extends React.Component {
     }
 
     render(){
-        const name = this.props.nameSelected
+        const { nameSelected, restaurants} = this.props
+        const li = restaurants.map( (elem) => <li key={elem.id} className="btn btn-default" >{elem.name}</li> )
 
         return (
-            <div id="user-select">
-                <h1>{name} Selected</h1>
+            <div id="vote">
+                <h1>"{nameSelected}" please select the Restaurant to be voted</h1>
+                <ul>
+                    {li}
+                </ul>
             </div>
         );
     }
