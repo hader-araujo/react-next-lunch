@@ -10,7 +10,8 @@ import { fetchRestaurants } from "../actions/RestaurantsActions"
     return {
         users : store.users.users,
         restaurants : store.restaurants.restaurants,
-        userSelected : {id: store.user.id, name: store.user.name}
+        userSelected : {id: store.user.id, name: store.user.name},
+        vote : store.vote.vote,
 
     };
 })
@@ -25,12 +26,13 @@ export default class Main extends React.Component {
     }
 
     render(){
-        const { users, restaurants, userSelected} = this.props
+        const { users, restaurants, userSelected, vote} = this.props
+        const forSelectUser = vote.id? true : ! userSelected.id
 
         return (
             <div>
-                <SelectUser users={users} idSelected={userSelected.id} dispatch={this.props.dispatch.bind(this)}/>
-                <Vote restaurants={restaurants} idSelected={userSelected.id} nameSelected={userSelected.name}  />
+                <SelectUser users={users} forSelectUser={forSelectUser} dispatch={this.props.dispatch.bind(this)} />
+                <Vote restaurants={restaurants} forSelectUser={forSelectUser} idSelected={userSelected.id} nameSelected={userSelected.name} dispatch={this.props.dispatch.bind(this)} />
             </div>
 
         );
@@ -38,5 +40,5 @@ export default class Main extends React.Component {
 }
 
 Main.defaultProps = {
-    userSelected: {}
+    userSelected: {}, vote: {}
 }

@@ -4,7 +4,7 @@ import {renderIf} from 'react-render-if'
 import { selectUser } from "../actions/SelectUserActions"
 
 @renderIf(
-    x => ! x.props.idSelected
+    x => x.props.forSelectUser
 )
 export default class SelectUser extends React.Component {
     constructor(props) {

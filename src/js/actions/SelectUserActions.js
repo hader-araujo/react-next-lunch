@@ -12,3 +12,10 @@ export function selectUser(id, name) {
         }
     }
 }
+
+export function clearUser() {
+    return{
+        type: FETCH_USER,
+        payload: {}
+    }
+}
