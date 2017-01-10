@@ -1,12 +1,12 @@
 import React from "react";
 
-import SelectUser from "../components/SelectUser";
+import Main from "../components/Main";
 
 export default class MainPage extends React.Component {
     render(){
         return (
             <div>
-                <SelectUser/>
+                <Main/>
             </div>
         );
     }
