@@ -1,5 +1,6 @@
 import axios from "axios"
 
+import { clearUser } from "./SelectUserActions"
 import { ACTIONS_TYPE } from "../Utils/Consts"
 const { FETCH_VOTE, FETCH_VOTE_REJECTED } = ACTIONS_TYPE
 
@@ -11,6 +12,9 @@ export function vote(restaurantId, userId, dispatch) {
 		
         axios.post(url, {restaurantId: restaurantId, userId: userId})
         .then(function (response) {
+
+        	dispatch(clearUser())
+
 			dispatch(
 				{
 					type: FETCH_VOTE,

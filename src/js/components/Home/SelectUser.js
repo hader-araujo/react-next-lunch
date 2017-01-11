@@ -1,11 +1,7 @@
 import React from "react";
-import {renderIf} from 'react-render-if'
 
-import { selectUser } from "../actions/SelectUserActions"
+import { selectUser } from "../../actions/SelectUserActions"
 
-@renderIf(
-    x => x.props.forSelectUser
-)
 export default class SelectUser extends React.Component {
     constructor(props) {
         super(props);
