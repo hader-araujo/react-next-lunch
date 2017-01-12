@@ -20,6 +20,13 @@ import { hasVote } from "../actions/HasVoteActions"
         userHasVoted : store.hasVote.hasVote,
         vote : store.vote.vote,
 
+        restaurantsError : store.restaurants.error,
+        userSelectedError : store.user.error,
+        winnerOfDayError : store.winnerOfDay.error,
+        winnersOfWeekError : store.winnersOfWeek.error,
+        userHasVotedError : store.hasVote.error,
+        voteError : store.vote.error,
+
     };
 })
 export default class Main extends React.Component {
@@ -42,6 +49,14 @@ export default class Main extends React.Component {
             winnerOfDay(this.props.dispatch.bind(this))
             winnersOfWeek(this.props.dispatch.bind(this))
             toastr.info("You voted successfully", 'Voted', {timeOut: 10000, preventDuplicates: true})
+        }
+
+        if (nextProps.restaurantsError, nextProps.userSelectedError, nextProps.winnerOfDayError, nextProps.winnersOfWeekError, nextProps.userHasVotedError){
+            toastr.error("It look like the server has some problems", 'Error', {timeOut: 10000, preventDuplicates: true})
+        }
+
+        if (nextProps.voteError && nextProps.voteError.response.status == 400){
+            toastr.error("It look like you are voting after midday", 'Error', {timeOut: 10000, preventDuplicates: true})
         }
     }
 

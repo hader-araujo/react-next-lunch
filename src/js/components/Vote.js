@@ -24,7 +24,12 @@ export default class Vote extends React.Component {
 
     canBeVoted(restaurantId){
         const { userHasVoted, winnersOfWeek, winnerOfDay} = this.props
-        return winnerOfDay.beforeMiddleDay? userHasVoted? false : winnersOfWeek.map( (elem) => elem.restaurantId).includes(restaurantId) ? false : true : false
+
+        if ((new Date()).getHours() >= 12){
+            return false;
+        }
+
+        return userHasVoted? false : winnersOfWeek.map( (elem) => elem.restaurantId).includes(restaurantId) ? false : true
     }
 
     getClassName(restaurantId){
@@ -36,8 +41,9 @@ export default class Vote extends React.Component {
     render(){
         const { nameSelected, restaurants, userHasVoted, winnerOfDay } = this.props
 
-        const h1Value = nameSelected + (winnerOfDay.beforeMiddleDay ? userHasVoted? ", you already voted today" : ", please select the Restaurant to be voted" :
-                ", you can not voted anymore because it is after middle day")
+        const h1Value = nameSelected + (((new Date()).getHours() >= 12) ?
+                ", you can not voted anymore because it is after middle day" :
+                userHasVoted? ", you already voted today" : ", please select the Restaurant to be voted")
 
         const li = restaurants.map( (elem) => <li key={elem.id} className={this.getClassName(elem.id)} onClick={this.handleClick.bind(this, elem.id)} >{elem.name}</li> )
 
