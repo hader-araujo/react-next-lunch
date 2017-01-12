@@ -16,11 +16,11 @@ export default class Home extends React.Component {
         const { users, dispatch, winnerOfDay }  = this.props
         return (
             <div id="home">
-                <div class="col-md-6">
+                <div className="row">
                     <SelectUser users={users} dispatch={dispatch} />
                 </div>
-
-                <div class="col-md-6">
+                <br/>
+                <div className="row">
                     <ShowResult winnerOfDay={winnerOfDay} />
                 </div>
             </div>
