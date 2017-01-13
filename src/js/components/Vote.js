@@ -1,8 +1,10 @@
 import React from "react";
+import * as toastr from "toastr"
 import {renderIf} from 'react-render-if'
 
 import { vote } from "../actions/VoteActions"
 import { clearUser } from "../actions/SelectUserActions"
+import { clearVoteError } from "../actions/VoteActions"
 
 @renderIf(
     x => ! x.props.forSelectUser
@@ -12,18 +14,23 @@ export default class Vote extends React.Component {
         super(props);
     }
 
-    handleReturn(){
-        this.props.dispatch(clearUser())
-    }
-
-    handleClick(restaurantId, event){
-        if (this.canBeVoted(restaurantId)){
-            vote(restaurantId, this.props.idSelected, this.props.dispatch.bind(this))
+    componentWillReceiveProps(nextProps) {
+        if (nextProps.voteError && nextProps.voteError.response && nextProps.voteError.response.status == 400){
+            toastr.warning("It look like you are voting after midday", 'Warning', {timeOut: 10000, preventDuplicates: true})
         }
     }
 
+    handleReturn(){
+        this.props.dispatch(clearUser())
+        this.props.dispatch(clearVoteError())
+    }
+
+    handleClick(restaurantId, event){
+        vote(restaurantId, this.props.idSelected, this.props.dispatch.bind(this))
+    }
+
     canBeVoted(restaurantId){
-        const { userHasVoted, winnersOfWeek, winnerOfDay} = this.props
+        const { userHasVoted, winnersOfWeek } = this.props
 
         if ((new Date()).getHours() >= 12){
             return false;
@@ -33,7 +40,6 @@ export default class Vote extends React.Component {
     }
 
     getClassName(restaurantId){
-        const { userHasVoted, winnersOfWeek } = this.props
         let className = "btn btn-default " + (this.canBeVoted(restaurantId)? " " : " disabled")
         return className
     }
@@ -42,7 +48,7 @@ export default class Vote extends React.Component {
         const { nameSelected, restaurants, userHasVoted, winnerOfDay } = this.props
 
         const h1Value = nameSelected + (((new Date()).getHours() >= 12) ?
-                ", you can not voted anymore because it is after middle day" :
+                ", you cannot vote anymore because it is after midday" :
                 userHasVoted? ", you already voted today" : ", please select the Restaurant to be voted")
 
         const li = restaurants.map( (elem) => <li key={elem.id} className={this.getClassName(elem.id)} onClick={this.handleClick.bind(this, elem.id)} >{elem.name}</li> )
@@ -57,7 +63,7 @@ export default class Vote extends React.Component {
                 </div>
                 <br/>
                 <div className="row">
-                    <button className="btn btn-primary " onClick={this.handleReturn.bind(this)} >Return with voting</button>
+                    <button className="btn btn-primary " onClick={this.handleReturn.bind(this)} >Return without vote</button>
                 </div>
             </div>
 

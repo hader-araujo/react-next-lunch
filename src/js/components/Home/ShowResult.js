@@ -12,7 +12,7 @@ export default class ShowResult extends React.Component {
         return winnerOfDay.restaurantName ?
             winnerOfDay.beforeMiddleDay ?
                 `The restaurant ${winnerOfDay.restaurantName} is winning with  ${winnerOfDay.quantity}  vote(s)` :
-                `The restaurant ${winnerOfDay.restaurantName} is won with  ${winnerOfDay.quantity}  vote(s)` :
+                `The restaurant ${winnerOfDay.restaurantName} has won with  ${winnerOfDay.quantity}  vote(s)` :
             `We do not have any vote yet`
     }
 
@@ -20,7 +20,7 @@ export default class ShowResult extends React.Component {
         const { winnerOfDay }  = this.props
 
         if (nextProps && nextProps.restaurantId != winnerOfDay.restaurantId && winnerOfDay.restaurantName && ! winnerOfDay.beforeMiddleDay){
-            toastr.info(this.getResult(), 'Result for today', {timeOut: 50000, preventDuplicates: true})
+            toastr.info(this.getResult(), 'Result of the day', {timeOut: 50000, preventDuplicates: true})
         }
     }
 

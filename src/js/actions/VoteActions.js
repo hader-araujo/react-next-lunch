@@ -32,3 +32,10 @@ export function vote(restaurantId, userId, dispatch) {
             } )
         })
 }
+
+export function clearVoteError() {
+    return{
+        type: FETCH_VOTE_REJECTED,
+        payload: {error : undefined}
+    }
+}

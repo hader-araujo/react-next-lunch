@@ -54,20 +54,17 @@ export default class Main extends React.Component {
         if (nextProps.restaurantsError, nextProps.userSelectedError, nextProps.winnerOfDayError, nextProps.winnersOfWeekError, nextProps.userHasVotedError){
             toastr.error("It look like the server has some problems", 'Error', {timeOut: 10000, preventDuplicates: true})
         }
-
-        if (nextProps.voteError && nextProps.voteError.response.status == 400){
-            toastr.error("It look like you are voting after midday", 'Error', {timeOut: 10000, preventDuplicates: true})
-        }
     }
 
     render(){
-        const { users, restaurants, userSelected, winnerOfDay, userHasVoted, winnersOfWeek } = this.props
+        const { users, restaurants, userSelected, winnerOfDay, userHasVoted, winnersOfWeek, voteError } = this.props
         const forSelectUser = !userSelected.id
 
         return (
             <div>
                 <Home users={users} forSelectUser={forSelectUser} dispatch={this.props.dispatch.bind(this)} winnerOfDay={winnerOfDay} />
-                <Vote restaurants={restaurants} forSelectUser={forSelectUser} idSelected={userSelected.id} nameSelected={userSelected.name} userHasVoted={userHasVoted}  winnerOfDay={winnerOfDay} winnersOfWeek={winnersOfWeek} dispatch={this.props.dispatch.bind(this)} />
+                <Vote restaurants={restaurants} forSelectUser={forSelectUser} idSelected={userSelected.id} nameSelected={userSelected.name}
+                      userHasVoted={userHasVoted}  winnerOfDay={winnerOfDay} winnersOfWeek={winnersOfWeek} dispatch={this.props.dispatch.bind(this)} voteError={voteError} />
             </div>
 
         );
